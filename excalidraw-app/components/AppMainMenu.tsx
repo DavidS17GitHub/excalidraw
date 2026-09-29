@@ -1,8 +1,4 @@
-import {
-  loginIcon,
-  ExcalLogo,
-  eyeIcon,
-} from "@excalidraw/excalidraw/components/icons";
+import { loginIcon, ExcalLogo } from "@excalidraw/excalidraw/components/icons";
 import { useI18n } from "@excalidraw/excalidraw/i18n";
 import { MainMenu } from "@excalidraw/excalidraw/index";
 import React from "react";
@@ -14,7 +10,7 @@ import type { Theme } from "@excalidraw/element/types";
 import { LanguageList } from "../app-language/LanguageList";
 import { isExcalidrawPlusSignedUser } from "../app_constants";
 
-import { saveDebugState } from "./DebugCanvas";
+import { isVisualDebuggerEnabled, saveDebugState } from "./DebugCanvas";
 
 export const AppMainMenu: React.FC<{
   onCollabDialogOpen: () => any;
@@ -61,8 +57,8 @@ export const AppMainMenu: React.FC<{
         {isExcalidrawPlusSignedUser ? t("labels.signIn") : t("labels.signUp")}
       </MainMenu.ItemLink>
       {isDevEnv() && (
-        <MainMenu.Item
-          icon={eyeIcon}
+        <MainMenu.ItemCheckbox
+          checked={isVisualDebuggerEnabled()}
           onSelect={() => {
             if (window.visualDebug) {
               delete window.visualDebug;
@@ -71,11 +67,12 @@ export const AppMainMenu: React.FC<{
               window.visualDebug = { data: [] };
               saveDebugState({ enabled: true });
             }
-            props?.refresh();
+
+            props.refresh();
           }}
         >
           Visual Debug
-        </MainMenu.Item>
+        </MainMenu.ItemCheckbox>
       )}
       <MainMenu.Separator />
       <MainMenu.DefaultItems.Preferences />

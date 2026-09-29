@@ -83,6 +83,7 @@ const MainMenu = Object.assign(
   {
     Trigger: DropdownMenu.Trigger,
     Item: DropdownMenu.Item,
+    ItemCheckbox: DropdownMenu.ItemCheckbox,
     ItemLink: DropdownMenu.ItemLink,
     ItemCustom: DropdownMenu.ItemCustom,
     Group: DropdownMenu.Group,
